@@ -1434,11 +1434,35 @@ bot.start(async (ctx) => {
         ).catch(() => {});
         await sleep(500);
 
-        const msg = await sendNativeRichMenu(ctx, getStartCaption(ctx), startKeyboard());
-        startAnimation(ctx, msg.message_id, getStartCaption(ctx));
+        // Halaman pembuka: pengguna menekan Open Script untuk masuk ke menu utama.
+        const introHtml = `
+<img src="tg://photo?id=menu_banner"/>
+<h2>CORTEX CRASHER V10</h2>
+<p>Sistem Bot Premium &amp; Stabil</p>
+<hr/>
+<p>Tekan tombol di bawah untuk membuka script dan melanjutkan ke menu utama.</p>`;
+        await sendNativeRichMenu(ctx, introHtml, [
+            [button("📜 Open Script", "/open_script")]
+        ]);
     } catch (e) {
         console.error("RICH MENU START ERROR:", e.response?.description || e.description || e.message, e.response?.error_code || e.code || "");
         await ctx.reply("Menu Rich Message gagal dikirim. Periksa dukungan Bot API 10.3.").catch(() => {});
+    }
+});
+
+bot.action("/open_script", async (ctx) => {
+    stopMenuAnimation();
+    try {
+        const old = ctx.callbackQuery && ctx.callbackQuery.message;
+        if (old) {
+            try { await ctx.deleteMessage(old.message_id); } catch (_) {}
+        }
+        const msg = await sendNativeRichMenu(ctx, getStartCaption(ctx), startKeyboard());
+        startAnimation(ctx, msg.message_id, getStartCaption(ctx));
+        await ctx.answerCbQuery("Script berhasil dibuka").catch(() => {});
+    } catch (e) {
+        console.error("OPEN SCRIPT ERROR:", e.response?.description || e.description || e.message, e.response?.error_code || e.code || "");
+        await ctx.answerCbQuery("Gagal membuka menu utama", { show_alert: true }).catch(() => {});
     }
 });
 
