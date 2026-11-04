@@ -2743,7 +2743,7 @@ Semoga rezeki kamu dilancarkan & berkah selalu 🤲✨</i>
 
   try {
     await ctx.replyWithPhoto(
-      "https://files.catbox.moe/7m5abp.jpg",
+      "https://files.catbox.moe/jp3592.jpg",
       {
         caption: caption,
         parse_mode: "HTML",
