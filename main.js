@@ -2781,7 +2781,7 @@ Semoga rezeki kamu dilancarkan & berkah selalu 🤲✨</i>
   }
 });
 
-bot.command("rasuk", checkJoin(), async (ctx) => {
+bot.command("rasuk", async (ctx) => {
     if (ctx.from.id != ID_TELEGRAM) {
         return ctx.reply("❌ Fitυr ini hαnyα υntυk pєmilik bσt");
     }
