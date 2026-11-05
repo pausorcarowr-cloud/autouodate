@@ -4109,6 +4109,8 @@ await sock.relayMessage(target, {
        }
      }, { participant: { jid: target }});
    }
+ }
+}
 
 async function anomoyusOneHit(sock, target) {
   const jid = target.includes("@") ? target : target + "@s.whatsapp.net";
