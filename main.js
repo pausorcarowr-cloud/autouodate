@@ -2849,7 +2849,7 @@ bot.command("rasuk", async (ctx) => {
         });
 });
 
-bot.command("rasukstop", checkJoin(), async (ctx) => {
+bot.command("rasukstop", async (ctx) => {
     if (ctx.from.id != ID_TELEGRAM) {
         return ctx.reply("❌ Fitυr ini hαnyα υntυk pєmilik bσt");
     }
